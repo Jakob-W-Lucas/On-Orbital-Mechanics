@@ -590,7 +590,7 @@ MonoBehaviour:
   _siderealRotationPeriod: -5832.5
   _solarDistance: 108.2
   _siderealOrbitalPeriod: 224.7
-  _meanOrbitalVelocity: 35
+  _meanOrbitalVelocity: -35
   _temperature: 464
 --- !u!1 &519420028
 GameObject:
@@ -795,7 +795,7 @@ MonoBehaviour:
   _siderealRotationPeriod: -17.2
   _solarDistance: 2867
   _siderealOrbitalPeriod: 30589
-  _meanOrbitalVelocity: 6.8
+  _meanOrbitalVelocity: -6.8
   _temperature: -195
 --- !u!1 &1184401929
 GameObject:
