@@ -4,7 +4,8 @@ using System.ComponentModel;
 using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
-public class CelestialBody : MonoBehaviour
+[CreateAssetMenu(fileName = "Celestial Body", menuName = "Celestial Body")]
+public class CelestialBody : ScriptableObject
 {
     [SerializeField] protected string _name;
 

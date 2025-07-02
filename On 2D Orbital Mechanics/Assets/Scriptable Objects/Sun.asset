@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ed700c5324372d4c9291e1a7e948f2d, type: 3}
+  m_Name: Sun
+  m_EditorClassIdentifier: 
+  _name: Sun
+  _mass: 1989000
+  _diameter: 1392700
+  _density: 1408
+  _siderealRotationPeriod: 0
+  _orbitalDistance: 0
+  _siderealOrbitalPeriod: 0
+  _meanOrbitalVelocity: 0
+  _temperature: 5499

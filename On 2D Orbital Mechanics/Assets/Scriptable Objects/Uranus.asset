@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ed700c5324372d4c9291e1a7e948f2d, type: 3}
+  m_Name: Uranus
+  m_EditorClassIdentifier: 
+  _name: Uranus
+  _mass: 86.8
+  _diameter: 51118
+  _density: 1270
+  _siderealRotationPeriod: -17.2
+  _orbitalDistance: 2867
+  _siderealOrbitalPeriod: 30589
+  _meanOrbitalVelocity: -6.8
+  _temperature: -195

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ed700c5324372d4c9291e1a7e948f2d, type: 3}
+  m_Name: Jupiter
+  m_EditorClassIdentifier: 
+  _name: Jupiter
+  _mass: 1898
+  _diameter: 142984
+  _density: 1326
+  _siderealRotationPeriod: 9.9
+  _orbitalDistance: 778.5
+  _siderealOrbitalPeriod: 4331
+  _meanOrbitalVelocity: 13.1
+  _temperature: -110

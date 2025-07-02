@@ -10,8 +10,4 @@ public static class AstronomicalConstants
 
     // Solar mass (kg)
     public const float SolarMass = 1989000f;
-
-    // Galactic scale (all values are divided by this value so they are not ridiculous)
-    // Unity units per km
-    public const int GalacticScale = 56000;
 }

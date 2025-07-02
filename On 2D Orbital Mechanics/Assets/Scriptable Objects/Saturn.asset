@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ed700c5324372d4c9291e1a7e948f2d, type: 3}
+  m_Name: Saturn
+  m_EditorClassIdentifier: 
+  _name: Saturn
+  _mass: 568
+  _diameter: 120536
+  _density: 687
+  _siderealRotationPeriod: 10.7
+  _orbitalDistance: 1432
+  _siderealOrbitalPeriod: 10747
+  _meanOrbitalVelocity: 9.7
+  _temperature: -140

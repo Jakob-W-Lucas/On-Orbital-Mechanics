@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CelestialBody))]
 public class FixedOrbit : MonoBehaviour
 {
+    [SerializeField] private GalacticScale GS;
     [SerializeField] private float e;
     [SerializeField] private Vector2 _center;
-    private CelestialBody body;
-    private float orbitingBodyMass;
+    [SerializeField] private CelestialBody body;
+    [SerializeField] private CelestialBody orbitingBody;
 
     // Semi-Major and Semi-Minor orbital axes respectfully
     private float a, b;
@@ -19,16 +19,16 @@ public class FixedOrbit : MonoBehaviour
 
     private void Start()
     {
-        body = GetComponent<CelestialBody>();
-        w = body.MeanOrbitalVelocity / 25;
+        // Retrieve either the Solar mass or the orbiting body mass
+        orbitingBody = orbitingBody ? orbitingBody : GS.HostBody;
 
-        orbitingBodyMass = this.transform.parent ?
-                        transform.parent.GetComponent<CelestialBody>().Mass :
-                        AstronomicalConstants.SolarMass;
+        if (!GS)
+        {
+            Debug.LogWarning($"{this.name} has not been assigned a Galactic Scale");
+            return;
+        }
 
         (a, b) = CalculateAxes();
-
-        Debug.Log($"For {body.Name} a is {a}");
     }
 
     /// <summary>
@@ -46,13 +46,18 @@ public class FixedOrbit : MonoBehaviour
     {
         // Get the orbital period in seconds
         float p = body.SiderealOrbitalPeriod * 24 * 60 * 60;
-        Debug.Log($"Mass of parent is {orbitingBodyMass}");
-        double a = Math.Pow(Math.Pow(p, 2) * AstronomicalConstants.G * ((orbitingBodyMass * Math.Pow(10, 24)) + (body.Mass * Math.Pow(10, 24))) / (4 * Math.Pow(Math.PI, 2)), 1f / 3f);
+
+        double mu = AstronomicalConstants.G * ((orbitingBody.Mass * Math.Pow(10, 24)) + (body.Mass * Math.Pow(10, 24)));
+        double a = Math.Pow(Math.Pow(p, 2) * mu
+            / (4 * Math.Pow(Math.PI, 2)), 1f / 3f);
+
         double c = e * a;
         double b = Math.Sqrt(Math.Pow((float)a, 2) - Math.Pow((float)c, 2));
 
+        w = (float)Math.Sqrt(mu / Math.Pow(a, 3));
+
         // Converts the meter calculation into km and then scales it to Galactic scale
-        return ((float)a / (AstronomicalConstants.GalacticScale * 1000), (float)b / (AstronomicalConstants.GalacticScale * 1000));
+        return (GS.ScaleDistance((float)a) / 1000, GS.ScaleDistance((float)b) / 1000);
     }
 
     /// <summary>
@@ -60,13 +65,15 @@ public class FixedOrbit : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
+        if (!GS) return;
+
         Orbit();
     }
 
     void Orbit()
     {
         // Get the fixed time update
-        t += Time.fixedDeltaTime * w;
+        t += GS.ScaleTime(w * Time.fixedDeltaTime);
 
         // Calculate the position around the circular orbit
         float x = _center.x + a * Mathf.Cos(t);
