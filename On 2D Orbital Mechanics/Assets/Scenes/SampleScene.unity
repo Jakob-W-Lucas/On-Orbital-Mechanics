@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 192757328}
   - component: {fileID: 192757327}
+  - component: {fileID: 192757330}
   - component: {fileID: 192757329}
   m_Layer: 0
   m_Name: Jupiter
@@ -220,8 +221,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a314394e9343cc4fa072468d96a9c9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _w: 1
-  _r: 13891
+  e: 0.049
+  _center: {x: 0, y: 0}
+--- !u!114 &192757330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 192757326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ed700c5324372d4c9291e1a7e948f2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: Jupiter
+  _mass: 1898
+  _diameter: 142984
+  _density: 1326
+  _siderealRotationPeriod: 9.9
+  _solarDistance: 778.5
+  _siderealOrbitalPeriod: 4331
+  _meanOrbitalVelocity: 13.1
+  _temperature: -110
 --- !u!1 &206857663
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,6 +254,7 @@ GameObject:
   m_Component:
   - component: {fileID: 206857665}
   - component: {fileID: 206857664}
+  - component: {fileID: 206857666}
   m_Layer: 0
   m_Name: Sun
   m_TagString: Untagged
@@ -306,6 +329,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &206857666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206857663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ed700c5324372d4c9291e1a7e948f2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: Sun
+  _mass: 1.989e+30
+  _diameter: 1392700
+  _density: 1408
+  _siderealRotationPeriod: 0
+  _solarDistance: 0
+  _siderealOrbitalPeriod: 0
+  _meanOrbitalVelocity: 0
+  _temperature: 5499
 --- !u!1 &345112457
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,6 +360,7 @@ GameObject:
   m_Component:
   - component: {fileID: 345112459}
   - component: {fileID: 345112458}
+  - component: {fileID: 345112461}
   - component: {fileID: 345112460}
   m_Layer: 0
   m_Name: Earth
@@ -403,8 +448,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a314394e9343cc4fa072468d96a9c9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _w: 1
-  _r: 2671
+  e: 0.017
+  _center: {x: 0, y: 0}
+--- !u!114 &345112461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345112457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ed700c5324372d4c9291e1a7e948f2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: Earth
+  _mass: 5.97
+  _diameter: 12756
+  _density: 5514
+  _siderealRotationPeriod: 23.9
+  _solarDistance: 149.6
+  _siderealOrbitalPeriod: 365.25
+  _meanOrbitalVelocity: 29.8
+  _temperature: 15
 --- !u!1 &383510480
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,6 +481,7 @@ GameObject:
   m_Component:
   - component: {fileID: 383510482}
   - component: {fileID: 383510481}
+  - component: {fileID: 383510484}
   - component: {fileID: 383510483}
   m_Layer: 0
   m_Name: Venus
@@ -502,8 +569,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a314394e9343cc4fa072468d96a9c9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _w: 1
-  _r: 1923
+  e: 0.007
+  _center: {x: 0, y: 0}
+--- !u!114 &383510484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383510480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ed700c5324372d4c9291e1a7e948f2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: Venus
+  _mass: 4.87
+  _diameter: 12104
+  _density: 5243
+  _siderealRotationPeriod: -5832.5
+  _solarDistance: 108.2
+  _siderealOrbitalPeriod: 224.7
+  _meanOrbitalVelocity: 35
+  _temperature: 464
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,6 +686,7 @@ GameObject:
   m_Component:
   - component: {fileID: 958124957}
   - component: {fileID: 958124956}
+  - component: {fileID: 958124959}
   - component: {fileID: 958124958}
   m_Layer: 0
   m_Name: Uranus
@@ -685,8 +774,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a314394e9343cc4fa072468d96a9c9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _w: 1
-  _r: 51290
+  e: 0.047
+  _center: {x: 0, y: 0}
+--- !u!114 &958124959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 958124955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ed700c5324372d4c9291e1a7e948f2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: Uranus
+  _mass: 86.8
+  _diameter: 51118
+  _density: 1270
+  _siderealRotationPeriod: -17.2
+  _solarDistance: 2867
+  _siderealOrbitalPeriod: 30589
+  _meanOrbitalVelocity: 6.8
+  _temperature: -195
 --- !u!1 &1184401929
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,6 +807,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1184401931}
   - component: {fileID: 1184401930}
+  - component: {fileID: 1184401933}
   - component: {fileID: 1184401932}
   m_Layer: 0
   m_Name: Saturn
@@ -784,8 +895,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a314394e9343cc4fa072468d96a9c9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _w: 1
-  _r: 25485
+  e: 0.052
+  _center: {x: 0, y: 0}
+--- !u!114 &1184401933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184401929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ed700c5324372d4c9291e1a7e948f2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: Saturn
+  _mass: 568
+  _diameter: 120536
+  _density: 687
+  _siderealRotationPeriod: 10.7
+  _solarDistance: 1432
+  _siderealOrbitalPeriod: 10747
+  _meanOrbitalVelocity: 9.7
+  _temperature: -140
 --- !u!1 &1631794928
 GameObject:
   m_ObjectHideFlags: 0
@@ -796,6 +928,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1631794930}
   - component: {fileID: 1631794929}
+  - component: {fileID: 1631794932}
   - component: {fileID: 1631794931}
   m_Layer: 0
   m_Name: Neptune
@@ -883,8 +1016,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a314394e9343cc4fa072468d96a9c9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _w: 1
-  _r: 80302
+  e: 0.01
+  _center: {x: 0, y: 0}
+--- !u!114 &1631794932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631794928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ed700c5324372d4c9291e1a7e948f2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: Neptune
+  _mass: 102
+  _diameter: 49528
+  _density: 1638
+  _siderealRotationPeriod: 16.1
+  _solarDistance: 4515
+  _siderealOrbitalPeriod: 59800
+  _meanOrbitalVelocity: 5.4
+  _temperature: -200
 --- !u!1 &1945206119
 GameObject:
   m_ObjectHideFlags: 0
@@ -895,6 +1049,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1945206121}
   - component: {fileID: 1945206120}
+  - component: {fileID: 1945206123}
   - component: {fileID: 1945206122}
   m_Layer: 0
   m_Name: Mars
@@ -982,8 +1137,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a314394e9343cc4fa072468d96a9c9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _w: 1
-  _r: 4060
+  e: 0.094
+  _center: {x: 0, y: 0}
+--- !u!114 &1945206123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945206119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ed700c5324372d4c9291e1a7e948f2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: Mars
+  _mass: 0.642
+  _diameter: 6792
+  _density: 3934
+  _siderealRotationPeriod: 24.6
+  _solarDistance: 228
+  _siderealOrbitalPeriod: 687
+  _meanOrbitalVelocity: 24.1
+  _temperature: -65
 --- !u!1 &1958093835
 GameObject:
   m_ObjectHideFlags: 0
@@ -994,6 +1170,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1958093837}
   - component: {fileID: 1958093836}
+  - component: {fileID: 1958093839}
   - component: {fileID: 1958093838}
   m_Layer: 0
   m_Name: Mercury
@@ -1081,5 +1258,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a314394e9343cc4fa072468d96a9c9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _w: 1
-  _r: 1041
+  e: 0.206
+  _center: {x: 0, y: 0}
+--- !u!114 &1958093839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958093835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ed700c5324372d4c9291e1a7e948f2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: Mercury
+  _mass: 0.33
+  _diameter: 4879
+  _density: 5429
+  _siderealRotationPeriod: 1407.6
+  _solarDistance: 57.9
+  _siderealOrbitalPeriod: 88
+  _meanOrbitalVelocity: 47.4
+  _temperature: 167
