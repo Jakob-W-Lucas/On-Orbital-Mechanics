@@ -9,6 +9,7 @@ public class FixedOrbit : MonoBehaviour
     [SerializeField] private float e;
     [SerializeField] private Vector2 _center;
     private CelestialBody body;
+    private float orbitingBodyMass;
 
     // Semi-Major and Semi-Minor orbital axes respectfully
     private float a, b;
@@ -19,9 +20,15 @@ public class FixedOrbit : MonoBehaviour
     private void Start()
     {
         body = GetComponent<CelestialBody>();
-        w = body.MeanOrbitalVelocity / 10;
+        w = body.MeanOrbitalVelocity / 25;
+
+        orbitingBodyMass = this.transform.parent ?
+                        transform.parent.GetComponent<CelestialBody>().Mass :
+                        AstronomicalConstants.SolarMass;
 
         (a, b) = CalculateAxes();
+
+        Debug.Log($"For {body.Name} a is {a}");
     }
 
     /// <summary>
@@ -39,8 +46,8 @@ public class FixedOrbit : MonoBehaviour
     {
         // Get the orbital period in seconds
         float p = body.SiderealOrbitalPeriod * 24 * 60 * 60;
-
-        double a = Math.Pow(Math.Pow(p, 2) * AstronomicalConstants.G * (AstronomicalConstants.SolarMass + (body.Mass * Math.Pow(10, 24))) / (4 * Math.Pow(Math.PI, 2)), 1f / 3f);
+        Debug.Log($"Mass of parent is {orbitingBodyMass}");
+        double a = Math.Pow(Math.Pow(p, 2) * AstronomicalConstants.G * ((orbitingBodyMass * Math.Pow(10, 24)) + (body.Mass * Math.Pow(10, 24))) / (4 * Math.Pow(Math.PI, 2)), 1f / 3f);
         double c = e * a;
         double b = Math.Sqrt(Math.Pow((float)a, 2) - Math.Pow((float)c, 2));
 
@@ -65,6 +72,6 @@ public class FixedOrbit : MonoBehaviour
         float x = _center.x + a * Mathf.Cos(t);
         float y = _center.y + b * Mathf.Sin(t);
 
-        transform.position = new Vector2(x, y);
+        transform.localPosition= new Vector2(x, y);
     }
 }   

@@ -9,7 +9,7 @@ public static class AstronomicalConstants
     public const float G = 0.000000000066743f;
 
     // Solar mass (kg)
-    public const float SolarMass = 1989000000000000000000000000000f;
+    public const float SolarMass = 1989000f;
 
     // Galactic scale (all values are divided by this value so they are not ridiculous)
     // Unity units per km

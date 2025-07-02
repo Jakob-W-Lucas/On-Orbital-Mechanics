@@ -20,8 +20,8 @@ public class CelestialBody : MonoBehaviour
     [Header("Sidereal rotation period (hrs)")]
     [SerializeField] protected float _siderealRotationPeriod;
 
-    [Header("Distance to Sun (10^6 km)")]
-    [SerializeField] protected float _solarDistance;
+    [Header("Distance to orbiting body (10^6 km)")]
+    [SerializeField] protected float _orbitalDistance;
 
     [Header("Sidereal orbit period (days)")]
     [SerializeField] protected float _siderealOrbitalPeriod;
@@ -37,7 +37,7 @@ public class CelestialBody : MonoBehaviour
     public float Diameter => _diameter;
     public float Density => _density;
     public float LengthOfDay => _siderealRotationPeriod;
-    public float SolarDistance => _solarDistance;
+    public float OrbitalDistance => _orbitalDistance;
     public float SiderealOrbitalPeriod => _siderealOrbitalPeriod;
     public float MeanOrbitalVelocity => _meanOrbitalVelocity;
     public float Temperature => _temperature;
