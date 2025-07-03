@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63a4712b51583946bdbd2c94d5ced56, type: 3}
   m_Name: Earth System
   m_EditorClassIdentifier: 
+  _host: {fileID: 11400000, guid: 059d93053542ec345923ed3f58bcda6b, type: 2}
   _distancePerUnit: 1000
-  _timePerUnit: 25
+  _timePerUnit: 0.0002

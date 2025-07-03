@@ -133,8 +133,8 @@ GameObject:
   m_Component:
   - component: {fileID: 45729508}
   - component: {fileID: 45729507}
-  - component: {fileID: 45729506}
   - component: {fileID: 45729505}
+  - component: {fileID: 45729509}
   m_Layer: 0
   m_Name: Moon
   m_TagString: Untagged
@@ -157,27 +157,6 @@ MonoBehaviour:
   GS: {fileID: 11400000, guid: d5998c38ac86eb344b12e80c4c0e6470, type: 2}
   e: 0.055
   _center: {x: 0, y: 0}
---- !u!114 &45729506
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 45729504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ed700c5324372d4c9291e1a7e948f2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _name: Moon
-  _mass: 0.073
-  _diameter: 3475
-  _density: 3340
-  _siderealRotationPeriod: 655.7
-  _orbitalDistance: 0.384
-  _siderealOrbitalPeriod: 27.3
-  _meanOrbitalVelocity: 1
-  _temperature: -20
 --- !u!212 &45729507
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -245,6 +224,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &45729509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 45729504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6413c9022eb5f664892de26b8a679b7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _celestialBody: {fileID: 11400000, guid: aa7fa65e859bbe241b045ac7c0e0eeb9, type: 2}
+  _orbitingBody: {fileID: 11400000, guid: 059d93053542ec345923ed3f58bcda6b, type: 2}
 --- !u!1 &178089440
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,8 +248,7 @@ GameObject:
   m_Component:
   - component: {fileID: 178089444}
   - component: {fileID: 178089443}
-  - component: {fileID: 178089442}
-  - component: {fileID: 178089441}
+  - component: {fileID: 178089445}
   m_Layer: 0
   m_Name: Earth
   m_TagString: Untagged
@@ -264,42 +256,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &178089441
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 178089440}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a314394e9343cc4fa072468d96a9c9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GS: {fileID: 11400000, guid: d5998c38ac86eb344b12e80c4c0e6470, type: 2}
-  e: 0.017
-  _center: {x: 0, y: 0}
---- !u!114 &178089442
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 178089440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ed700c5324372d4c9291e1a7e948f2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _name: Earth
-  _mass: 5.97
-  _diameter: 12756
-  _density: 5514
-  _siderealRotationPeriod: 23.9
-  _orbitalDistance: 149.6
-  _siderealOrbitalPeriod: 365.25
-  _meanOrbitalVelocity: 29.8
-  _temperature: 15
 --- !u!212 &178089443
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -367,6 +323,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &178089445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178089440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6413c9022eb5f664892de26b8a679b7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _celestialBody: {fileID: 11400000, guid: 059d93053542ec345923ed3f58bcda6b, type: 2}
+  _orbitingBody: {fileID: 0}
 --- !u!1 &1375826731
 GameObject:
   m_ObjectHideFlags: 0

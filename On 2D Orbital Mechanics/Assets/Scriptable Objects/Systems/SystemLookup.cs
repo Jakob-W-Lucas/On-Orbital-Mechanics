@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Galactic Scale", menuName = "Galactic Scale")]
-public class GalacticScale : ScriptableObject
+[CreateAssetMenu(fileName = "SystemLookup", menuName = "SystemLookup")]
+public class SystemLookup : ScriptableObject
 {
     // The 'Main' body of the system
     [SerializeField] private CelestialBody _host;
@@ -11,6 +11,9 @@ public class GalacticScale : ScriptableObject
     [SerializeField] private float _timePerUnit;
 
     public CelestialBody HostBody => _host;
+    
     public float ScaleDistance(float d) => d / _distancePerUnit;
+    public (float a, float b) ScaleDistance(float a, float b) => (a / _distancePerUnit, b / _distancePerUnit);
+
     public float ScaleTime(float t) => t / _timePerUnit;
 }

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Solar System
   m_EditorClassIdentifier: 
   _host: {fileID: 11400000, guid: a54d588f6de25824abf3643f1b9a7907, type: 2}
-  _distancePerUnit: 56000
-  _timePerUnit: 0.0000002
+  _distancePerUnit: 500000
+  _timePerUnit: 0.000002

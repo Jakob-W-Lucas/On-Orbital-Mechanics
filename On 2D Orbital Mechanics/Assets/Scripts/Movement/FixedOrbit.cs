@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CelestialBodyController))]
 public class FixedOrbit : MonoBehaviour
 {
-    [SerializeField] private GalacticScale GS;
     [SerializeField] private float e;
     [SerializeField] private Vector2 _center;
-    [SerializeField] private CelestialBody body;
-    [SerializeField] private CelestialBody orbitingBody;
+    private SystemLookup systemLookup;
+    private CelestialBody body;
+    private CelestialBody orbitingBody;
 
     // Semi-Major and Semi-Minor orbital axes respectfully
     private float a, b;
@@ -19,14 +20,10 @@ public class FixedOrbit : MonoBehaviour
 
     private void Start()
     {
-        // Retrieve either the Solar mass or the orbiting body mass
-        orbitingBody = orbitingBody ? orbitingBody : GS.HostBody;
-
-        if (!GS)
-        {
-            Debug.LogWarning($"{this.name} has not been assigned a Galactic Scale");
-            return;
-        }
+        systemLookup = SystemController.SystemLookup;
+        CelestialBodyController cBC = GetComponent<CelestialBodyController>();
+        body = cBC.Body;
+        orbitingBody = cBC.Orbiting;
 
         (a, b) = CalculateAxes();
     }
@@ -54,10 +51,11 @@ public class FixedOrbit : MonoBehaviour
         double c = e * a;
         double b = Math.Sqrt(Math.Pow((float)a, 2) - Math.Pow((float)c, 2));
 
-        w = (float)Math.Sqrt(mu / Math.Pow(a, 3));
+        // Gets the orbital velocity based on Kepler's laws and then sets it in the correct motion
+        w = (float)Math.Sqrt(mu / Math.Pow(a, 3)) * Mathf.Sign(body.MeanOrbitalVelocity);
 
         // Converts the meter calculation into km and then scales it to Galactic scale
-        return (GS.ScaleDistance((float)a) / 1000, GS.ScaleDistance((float)b) / 1000);
+        return systemLookup.ScaleDistance((float)a / 1000, (float)b / 1000);
     }
 
     /// <summary>
@@ -65,20 +63,18 @@ public class FixedOrbit : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
-        if (!GS) return;
-
         Orbit();
     }
 
     void Orbit()
     {
         // Get the fixed time update
-        t += GS.ScaleTime(w * Time.fixedDeltaTime);
+        t += systemLookup.ScaleTime(w * Time.fixedDeltaTime);
 
         // Calculate the position around the circular orbit
         float x = _center.x + a * Mathf.Cos(t);
         float y = _center.y + b * Mathf.Sin(t);
 
-        transform.localPosition= new Vector2(x, y);
+        transform.localPosition = new Vector2(x, y);
     }
 }   
