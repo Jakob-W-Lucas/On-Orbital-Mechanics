@@ -12,6 +12,6 @@ public class CelestialBodyController : MonoBehaviour
     {
         _orbitingBody = transform.parent != null && transform.parent.TryGetComponent<CelestialBodyController>(out var CBC) ?
                         CBC.Body :
-                        SystemController.SystemLookup.HostBody;
+                        GetComponentInParent<SystemController>().HostBody;
     }
 }

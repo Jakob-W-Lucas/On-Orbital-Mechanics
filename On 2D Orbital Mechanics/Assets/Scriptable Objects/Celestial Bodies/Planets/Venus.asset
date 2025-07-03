@@ -20,4 +20,5 @@ MonoBehaviour:
   _orbitalDistance: 108.2
   _siderealOrbitalPeriod: 224.7
   _meanOrbitalVelocity: -35
+  _longOfPerihelion: 131.53
   _temperature: 464

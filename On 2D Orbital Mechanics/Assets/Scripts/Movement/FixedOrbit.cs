@@ -5,8 +5,8 @@ using UnityEngine;
 public class FixedOrbit : MonoBehaviour
 {
     [SerializeField] private float e;
-    [SerializeField] private Vector2 _center;
-    private SystemLookup systemLookup;
+    [SerializeField] private Vector2 center;
+    private SystemController systemLookup;
     private CelestialBody body;
     private CelestialBody orbitingBody;
 
@@ -18,7 +18,7 @@ public class FixedOrbit : MonoBehaviour
 
     private void Start()
     {
-        systemLookup = SystemController.SystemLookup;
+        systemLookup = GetComponentInParent<SystemController>();
         CelestialBodyController cBC = GetComponent<CelestialBodyController>();
 
         body = cBC.Body;
@@ -46,14 +46,21 @@ public class FixedOrbit : MonoBehaviour
         float p = body.SiderealOrbitalPeriod * 24 * 60 * 60;
 
         double mu = AstronomicalConstants.G * ((orbitingBody.Mass * Math.Pow(10, 24)) + (body.Mass * Math.Pow(10, 24)));
-        double a = Math.Pow(Math.Pow(p, 2) * mu
-            / (4 * Math.Pow(Math.PI, 2)), 1f / 3f);
-
+        // Semi-Major axis
+        double a = Math.Pow(Math.Pow(p, 2) * mu / (4 * Math.Pow(Math.PI, 2)), 1f / 3f);
+        // Distance from centre to focus
         double c = e * a;
+        // Semi-Minor axis
         double b = Math.Sqrt(Math.Pow((float)a, 2) - Math.Pow((float)c, 2));
-
         // Gets the orbital velocity based on Kepler's laws and then sets it in the correct motion
         w = (float)Math.Sqrt(mu / Math.Pow(a, 3)) * Mathf.Sign(body.MeanOrbitalVelocity);
+
+        // centre offset from the focus at (0,0):
+        float magitudeOfCenter = systemLookup.ScaleDistance((float)c / 1000);
+        center = new Vector2(
+            magitudeOfCenter * Mathf.Cos(body.LongitudeOfPerihelion), 
+            magitudeOfCenter * Mathf.Sin(body.LongitudeOfPerihelion)
+        );
 
         // Converts the meter calculation into km and then scales it to Galactic scale
         return systemLookup.ScaleDistance((float)a / 1000, (float)b / 1000);
@@ -73,8 +80,8 @@ public class FixedOrbit : MonoBehaviour
         t += systemLookup.ScaleTime(w * Time.fixedDeltaTime);
 
         // Calculate the position around the circular orbit
-        float x = _center.x + a * Mathf.Cos(t);
-        float y = _center.y + b * Mathf.Sin(t);
+        float x = center.x + a * Mathf.Cos(t);
+        float y = center.y + b * Mathf.Sin(t);
 
         transform.localPosition = new Vector2(x, y);
     }

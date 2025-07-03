@@ -3,41 +3,26 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[System.Serializable]
-public struct BodyTransform
-{
-    public Transform Obj;
-    public CelestialBody Body;
-
-    // Allows for objects to be exagerated beyond what they would normally be represented at, at this scale
-    public int Exaggeration;
-}
 public class CelestialBodyTransformer : MonoBehaviour
 {
     [SerializeField] private int DefaultExaggeration;
-    [SerializeField] private int HostExaggeration;
-    [SerializeField] private BodyTransform[] _bodies;
-    private SystemLookup systemLookup;
+    private SystemController systemLookup;
+    private Transform[] bodies;
 
     private void Start()
     {
-        systemLookup = SystemController.SystemLookup;
+        systemLookup = GetComponent<SystemController>();
+        bodies = GetComponentsInChildren<Transform>();
 
-        if (_bodies.Length == 0)
+        TransformBodies(DefaultExaggeration);
+    }
+
+    public void TransformBodies(int exaggeration)
+    {
+        foreach (Transform t in bodies)
         {
-            Transform[] bodies = GetComponentsInChildren<Transform>();
-
-            foreach (Transform t in bodies)
-            {
-                if (t.TryGetComponent<CelestialBodyController>(out var cBC))
-                {
-                    int exaggeration = HostExaggeration > 0 && cBC.Body == systemLookup.HostBody ? HostExaggeration : DefaultExaggeration;
-                    Scale(t, cBC.Body, exaggeration);
-                }
-            }
+            if (t.TryGetComponent<CelestialBodyController>(out var cBC)) Scale(t, cBC.Body, exaggeration);
         }
-
-        foreach (BodyTransform b in _bodies) Scale(b.Obj, b.Body, b.Exaggeration);
     }
 
     void Scale(Transform t, CelestialBody b, int e)

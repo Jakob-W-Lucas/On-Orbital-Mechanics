@@ -13,12 +13,12 @@ public class CameraController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            main.orthographicSize = 500;
+            main.orthographicSize = 350;
         }
 
         if (Input.GetKeyDown(KeyCode.J))
         {
-            main.orthographicSize = 5000;
+            main.orthographicSize = 4000;
         }
     }
 }

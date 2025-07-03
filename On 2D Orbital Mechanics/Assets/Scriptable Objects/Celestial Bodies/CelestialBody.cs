@@ -30,6 +30,9 @@ public class CelestialBody : ScriptableObject
     [Header("Mean orbital velocity (km/s)")]
     [SerializeField] protected float _meanOrbitalVelocity;
 
+    [Header("Longitude of perihelion (Degrees)")]
+    [SerializeField] protected float _longOfPerihelion;
+
     [Header("Mean Temperature (C)")]
     [SerializeField] protected float _temperature;
 
@@ -41,5 +44,6 @@ public class CelestialBody : ScriptableObject
     public float OrbitalDistance => _orbitalDistance;
     public float SiderealOrbitalPeriod => _siderealOrbitalPeriod;
     public float MeanOrbitalVelocity => _meanOrbitalVelocity;
+    public float LongitudeOfPerihelion => _longOfPerihelion;
     public float Temperature => _temperature;
 }
