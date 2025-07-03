@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CelestialBodyController))]
@@ -22,8 +20,11 @@ public class FixedOrbit : MonoBehaviour
     {
         systemLookup = SystemController.SystemLookup;
         CelestialBodyController cBC = GetComponent<CelestialBodyController>();
+
         body = cBC.Body;
         orbitingBody = cBC.Orbiting;
+
+        t = UnityEngine.Random.Range(100, 1000);
 
         (a, b) = CalculateAxes();
     }

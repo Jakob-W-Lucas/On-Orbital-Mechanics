@@ -617,7 +617,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 2300
+  orthographic size: 4300
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -659,6 +659,7 @@ GameObject:
   - component: {fileID: 685061432}
   - component: {fileID: 685061431}
   - component: {fileID: 685061433}
+  - component: {fileID: 685061434}
   m_Layer: 0
   m_Name: System
   m_TagString: Untagged
@@ -715,34 +716,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 789376467f72c5946b14c829905fe018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bodies:
-  - Obj: {fileID: 206857665}
-    Body: {fileID: 11400000, guid: a54d588f6de25824abf3643f1b9a7907, type: 2}
-    Exaggeration: 10
-  - Obj: {fileID: 1958093837}
-    Body: {fileID: 11400000, guid: 6482a28b4e8d3d04c8a3d0d5d3caaf1b, type: 2}
-    Exaggeration: 2000
-  - Obj: {fileID: 383510482}
-    Body: {fileID: 11400000, guid: 61680578e753c684dab7e847c680d217, type: 2}
-    Exaggeration: 2000
-  - Obj: {fileID: 345112459}
-    Body: {fileID: 11400000, guid: 059d93053542ec345923ed3f58bcda6b, type: 2}
-    Exaggeration: 2000
-  - Obj: {fileID: 1945206121}
-    Body: {fileID: 11400000, guid: aac9bca2e29e73c489874d379eb3a935, type: 2}
-    Exaggeration: 2000
-  - Obj: {fileID: 192757328}
-    Body: {fileID: 11400000, guid: f79e31b163b3ed445804061e2332e160, type: 2}
-    Exaggeration: 500
-  - Obj: {fileID: 1184401931}
-    Body: {fileID: 11400000, guid: b148ef551e79b4145a3c4dab1ed32ef4, type: 2}
-    Exaggeration: 500
-  - Obj: {fileID: 958124957}
-    Body: {fileID: 11400000, guid: 830fa82abfcd887418bbe4a819b6b177, type: 2}
-    Exaggeration: 500
-  - Obj: {fileID: 1631794930}
-    Body: {fileID: 11400000, guid: 830fa82abfcd887418bbe4a819b6b177, type: 2}
-    Exaggeration: 500
+  DefaultExaggeration: 500
+  HostExaggeration: 20
+  _bodies: []
+--- !u!114 &685061434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 685061430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7b409f30de05834ab4168a8c803d41c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &958124955
 GameObject:
   m_ObjectHideFlags: 0

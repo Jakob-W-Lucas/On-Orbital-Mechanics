@@ -14,6 +14,8 @@ public struct BodyTransform
 }
 public class CelestialBodyTransformer : MonoBehaviour
 {
+    [SerializeField] private int DefaultExaggeration;
+    [SerializeField] private int HostExaggeration;
     [SerializeField] private BodyTransform[] _bodies;
     private SystemLookup systemLookup;
 
@@ -21,15 +23,29 @@ public class CelestialBodyTransformer : MonoBehaviour
     {
         systemLookup = SystemController.SystemLookup;
 
-        foreach (BodyTransform b in _bodies) Scale(b);
+        if (_bodies.Length == 0)
+        {
+            Transform[] bodies = GetComponentsInChildren<Transform>();
+
+            foreach (Transform t in bodies)
+            {
+                if (t.TryGetComponent<CelestialBodyController>(out var cBC))
+                {
+                    int exaggeration = HostExaggeration > 0 && cBC.Body == systemLookup.HostBody ? HostExaggeration : DefaultExaggeration;
+                    Scale(t, cBC.Body, exaggeration);
+                }
+            }
+        }
+
+        foreach (BodyTransform b in _bodies) Scale(b.Obj, b.Body, b.Exaggeration);
     }
 
-    void Scale(BodyTransform b)
+    void Scale(Transform t, CelestialBody b, int e)
     {
-        float scale = systemLookup.ScaleDistance(b.Body.Diameter) * b.Exaggeration;
+        float scale = systemLookup.ScaleDistance(b.Diameter) * e;
 
         Vector3 parentScale = transform.parent != null ? transform.parent.lossyScale : Vector3.one;
-        b.Obj.localScale = new Vector3(
+        t.localScale = new Vector3(
             scale / parentScale.x,
             scale / parentScale.y,
             0
