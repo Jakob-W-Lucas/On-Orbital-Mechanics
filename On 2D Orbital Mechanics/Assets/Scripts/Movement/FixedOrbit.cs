@@ -5,16 +5,14 @@ using UnityEngine;
 public class FixedOrbit : MonoBehaviour
 {
     [SerializeField] private float e;
-    [SerializeField] private Vector2 center;
+    public Vector2 Center { get; private set; }
     private SystemController systemLookup;
     private CelestialBody body;
     private CelestialBody orbitingBody;
 
-    // Semi-Major and Semi-Minor orbital axes respectfully
-    private float a, b;
-    // Adjusted angular velocity;
-    private float w;
-    private float t;
+    public double radius;
+    public double t { get; private set; }
+    private double delta, h;
 
     private void Start()
     {
@@ -24,9 +22,7 @@ public class FixedOrbit : MonoBehaviour
         body = cBC.Body;
         orbitingBody = cBC.Orbiting;
 
-        t = UnityEngine.Random.Range(100, 1000);
-
-        (a, b) = CalculateAxes();
+        CalculateAxes();
     }
 
     /// <summary>
@@ -40,30 +36,30 @@ public class FixedOrbit : MonoBehaviour
     /// and is now generalized to any fixed orbit of any rotating body around the Sun.
     /// 
     /// </summary>
-    (float a, float b) CalculateAxes()
+    void CalculateAxes()
     {
         // Get the orbital period in seconds
-        float p = body.SiderealOrbitalPeriod * 24 * 60 * 60;
-
-        double mu = AstronomicalConstants.G * ((orbitingBody.Mass * Math.Pow(10, 24)) + (body.Mass * Math.Pow(10, 24)));
+        float p = body.SiderealOrbitalPeriod * 86400;
+        // Assumes that m << M
+        double mu = AstronomicalConstants.G * (orbitingBody.Mass * Math.Pow(10, 24));
         // Semi-Major axis
-        double a = Math.Pow(Math.Pow(p, 2) * mu / (4 * Math.Pow(Math.PI, 2)), 1f / 3f);
+        double a = Math.Pow(p * p * mu / (4.0 * Math.PI * Math.PI), 1.0 / 3.0);
         // Distance from centre to focus
         double c = e * a;
         // Semi-Minor axis
-        double b = Math.Sqrt(Math.Pow((float)a, 2) - Math.Pow((float)c, 2));
-        // Gets the orbital velocity based on Kepler's laws and then sets it in the correct motion
-        w = (float)Math.Sqrt(mu / Math.Pow(a, 3)) * Mathf.Sign(body.MeanOrbitalVelocity);
+        double b = Math.Sqrt(a * a - c * c);
 
-        // centre offset from the focus at (0,0):
-        float magitudeOfCenter = systemLookup.ScaleDistance((float)c / 1000);
-        center = new Vector2(
-            magitudeOfCenter * Mathf.Cos(body.LongitudeOfPerihelion), 
-            magitudeOfCenter * Mathf.Sin(body.LongitudeOfPerihelion)
+        double centerMagnitude = Math.Abs(systemLookup.ScaleDistance(c / 1000.0));
+        Center = new Vector2(
+            (float)(centerMagnitude * Math.Cos(body.LongitudeOfPerihelion * Math.PI / 180.0)), 
+            (float)(centerMagnitude * Math.Sin(body.LongitudeOfPerihelion * Math.PI / 180.0))
         );
 
-        // Converts the meter calculation into km and then scales it to Galactic scale
-        return systemLookup.ScaleDistance((float)a / 1000, (float)b / 1000);
+        h = Math.Sqrt(mu * a * (1.0 - e * e));
+
+        delta = a * (1.0 - e * e);
+
+        t = UnityEngine.Random.Range(0f, 2f * Mathf.PI);
     }
 
     /// <summary>
@@ -76,13 +72,19 @@ public class FixedOrbit : MonoBehaviour
 
     void Orbit()
     {
-        // Get the fixed time update
-        t += systemLookup.ScaleTime(w * Time.fixedDeltaTime);
+        double r = delta / (1.0 + e * Math.Cos(t));
+        radius = r;
+        double omegaReal = systemLookup.ScaleTime(h / (r * r));
 
-        // Calculate the position around the circular orbit
-        float x = center.x + a * Mathf.Cos(t);
-        float y = center.y + b * Mathf.Sin(t);
+        t += omegaReal * Time.fixedDeltaTime * Math.Sign(body.MeanOrbitalVelocity);
 
-        transform.localPosition = new Vector2(x, y);
+        // wrap to [0,2π) occasionally:
+        if (t > 2.0 * Math.PI) t -= 2.0 * Math.PI;
+
+        // 6) Compute new position in Cartesian
+        double x = Center.x + systemLookup.ScaleDistance(r * Math.Cos(t + body.LongitudeOfPerihelion * 180.0 / Math.PI));
+        double y = Center.y + systemLookup.ScaleDistance(r * Math.Sin(t + body.LongitudeOfPerihelion * 180.0 / Math.PI));
+
+        transform.localPosition = new Vector2((float)x, (float)y);
     }
 }   

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,13 +21,9 @@ public class SystemController : MonoBehaviour
     private CelestialBodyTransformer celestialBodyTransformer;
 
     public CelestialBody HostBody => _host;
-
-    public float ScaleDistance(float d) => d / _distancePerUnit;
-    public (float a, float b) ScaleDistance(float a, float b) => (a / _distancePerUnit, b / _distancePerUnit);
-    public float IScaleDistance(float d) => d * _distancePerUnit;
-
-    public float ScaleTime(float t) => t / _timePerUnit;
-    //public float IScaleTime(float t) => t * _timePerUnit;
+    public double ScaleDistance(double d) => d / _distancePerUnit / 1000.0;
+    public double IScaleDistance(double d) => d * _distancePerUnit * 1000.0;
+    public double ScaleTime(double t) => t * _timePerUnit;
 
     private void Start()
     {

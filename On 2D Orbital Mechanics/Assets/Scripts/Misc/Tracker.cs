@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using System.Text;
+using Unity.Mathematics;
 using UnityEngine;
 
 [RequireComponent(typeof(CelestialBodyController))]
@@ -8,9 +8,12 @@ public class Tracker : MonoBehaviour
 {
     private SystemController systemController;
     private CelestialBody body;
+    private FixedOrbit fixedOrbit;
     private bool orbitComplete = false;
     private float timer = 0f;
-    private Vector2 _start;
+    private bool _half;
+    private double _startRadian;
+    private double _endRadian;
     private float aphelion;
     private float perihelion = Mathf.Infinity;
 
@@ -18,6 +21,10 @@ public class Tracker : MonoBehaviour
     {
         systemController = GetComponentInParent<SystemController>();
         body = GetComponent<CelestialBodyController>().Body;
+        fixedOrbit = GetComponent<FixedOrbit>();
+
+        _startRadian = fixedOrbit.t;
+        _endRadian = (fixedOrbit.t + Math.PI) % (2 * Math.PI);
     }
 
     private void Update()
@@ -26,40 +33,45 @@ public class Tracker : MonoBehaviour
 
         timer += Time.deltaTime;
 
-        // Ensures that the orbit is on track before declaring a start point
-        if (timer < 1f)
+        if (Math.Abs(Math.PI - fixedOrbit.t) < 0.01f)
         {
-            if (timer < 0.25f) _start = transform.position;
+            double x = fixedOrbit.Center.x + systemController.ScaleDistance(fixedOrbit.radius * Math.Cos(Math.PI + body.LongitudeOfPerihelion * 180.0 / Math.PI));
+            double y = fixedOrbit.Center.y + systemController.ScaleDistance(fixedOrbit.radius * Math.Sin(Math.PI + body.LongitudeOfPerihelion * 180.0 / Math.PI));
+
+            aphelion = (float)Math.Sqrt(x * x + y * y);
+        }
+        
+        if (fixedOrbit.t < 0.01f)
+        {
+            perihelion = (float)fixedOrbit.radius / 1000;
+        }
+
+        if (_half && Math.Abs(_startRadian - fixedOrbit.t) < 0.01f)
+        {
+            orbitComplete = true;
+
+            PrintLogs();
+
             return;
         }
 
-        if (Mathf.Abs(transform.position.x - _start.x) < 10 &&
-                Mathf.Abs(transform.position.y - _start.y) < 10)
-            {
-                orbitComplete = true;
-
-                ConvertValues();
-                PrintLogs();
-            }
+        if (Math.Abs(_endRadian - fixedOrbit.t) < 0.01f)
+        {
+            _half = true;
+        }
 
         float distFromOrbiting = Vector2.Distance(Vector2.zero, transform.position);
-        perihelion = distFromOrbiting < perihelion ? distFromOrbiting : perihelion;
-        aphelion = distFromOrbiting > aphelion ? distFromOrbiting : aphelion;
-    }
-
-    void ConvertValues()
-    {
-        perihelion = systemController.IScaleDistance(perihelion);
-        aphelion = systemController.IScaleDistance(aphelion);
-        timer = systemController.ScaleTime(timer);
+        //Debug.Log($"Difference between calculated and given: {Math.Abs(systemController.IScaleDistance(distFromOrbiting / 1000) - systemController.ScaleDistance(fixedOrbit.radius / 1000))}");
+        // perihelion = distFromOrbiting < perihelion ? systemController.IScaleDistance(distFromOrbiting) / 1000 : perihelion;
+        // aphelion = distFromOrbiting > aphelion ? systemController.IScaleDistance(distFromOrbiting) / 1000 : aphelion;
     }
 
     void PrintLogs()
     {
         StringBuilder str = new StringBuilder($"Here are the stats for {body.Name} after 1 orbit:");
-        str.Append($"   Time to complete: {timer / 86400} days. Error: {Mathf.Round(body.SiderealOrbitalPeriod / (timer / 86400 * 10000)) / 100}%");
+        str.Append($"   Time to complete: {(float)systemController.ScaleTime(timer) / 86400} days. Error: {Mathf.Round(body.SiderealOrbitalPeriod / ((float)systemController.ScaleTime(timer) / 86400 * 10000)) / 100}%");
         str.Append($"   Perihelion: {perihelion / Mathf.Pow(10, 6)}");
-        str.Append($"   Aphelion: {aphelion / Mathf.Pow(10, 6)}");
+        str.Append($"   Aphelion: {(float)(systemController.IScaleDistance(aphelion / 1000) / Mathf.Pow(10, 6))}");
 
         Debug.Log(str);
     }

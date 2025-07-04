@@ -27,7 +27,7 @@ public class CelestialBodyTransformer : MonoBehaviour
 
     void Scale(Transform t, CelestialBody b, int e)
     {
-        float scale = systemLookup.ScaleDistance(b.Diameter) * e;
+        float scale = (float)systemLookup.ScaleDistance(b.Diameter) * 1000 * e;
 
         Vector3 parentScale = transform.parent != null ? transform.parent.lossyScale : Vector3.one;
         t.localScale = new Vector3(
