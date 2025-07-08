@@ -10,9 +10,10 @@ public class FixedOrbit : MonoBehaviour
     private CelestialBody body;
     private CelestialBody orbitingBody;
 
-    public double radius;
+    public double r { get; private set; }
     public double t { get; private set; }
     private double delta, h;
+    private double radLOP;
 
     private void Start()
     {
@@ -21,19 +22,19 @@ public class FixedOrbit : MonoBehaviour
 
         body = cBC.Body;
         orbitingBody = cBC.Orbiting;
-
+        // Convert the bodies longitude of Perihelion in radians
+        radLOP = body.LongitudeOfPerihelion * Math.PI / 180.0;
+        // Get the axes
         CalculateAxes();
     }
 
     /// <summary>
+    /// 
     /// Calculates the Major and Minor axis of an orbital ellipse using Newton's version of Kepler's third law. 
     /// 
-    /// Each axes is scaled to Galactic scale so the distances are not extreme.
+    /// Only the celestial body that is being orbited's mass is taken into account for now.
     /// 
-    /// Note also that in the calculation the mass of the orbiting planet is taken into account,
-    /// this is not strictly necessary as (esspecially for terrestrial planets) m << M_sun. But
-    /// I thought I would include it anyways because this calculation is only performed once,
-    /// and is now generalized to any fixed orbit of any rotating body around the Sun.
+    /// We also determine the center of the ellipse from the longitude of perihelion of the ellipse.
     /// 
     /// </summary>
     void CalculateAxes()
@@ -51,29 +52,25 @@ public class FixedOrbit : MonoBehaviour
 
         double centerMagnitude = Math.Abs(systemLookup.ScaleDistance(c / 1000.0));
         Center = new Vector2(
-            (float)(centerMagnitude * Math.Cos(body.LongitudeOfPerihelion * Math.PI / 180.0)), 
-            (float)(centerMagnitude * Math.Sin(body.LongitudeOfPerihelion * Math.PI / 180.0))
+            (float)(centerMagnitude * Math.Cos(radLOP)), 
+            (float)(centerMagnitude * Math.Sin(radLOP))
         );
 
         h = Math.Sqrt(mu * a * (1.0 - e * e));
-
         delta = a * (1.0 - e * e);
-
+        // Inital random position around the ellipse
         t = UnityEngine.Random.Range(0f, 2f * Mathf.PI);
     }
 
     /// <summary>
-    /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
+    /// 
+    /// Progresses the position of the object around its ellipse, making sure to take into account
+    /// Kepler's 2nd law when calculating velocity.
+    /// 
     /// </summary>
     void FixedUpdate()
     {
-        Orbit();
-    }
-
-    void Orbit()
-    {
-        double r = delta / (1.0 + e * Math.Cos(t));
-        radius = r;
+        r = delta / (1.0 + e * Math.Cos(t));
         double omegaReal = systemLookup.ScaleTime(h / (r * r));
 
         t += omegaReal * Time.fixedDeltaTime * Math.Sign(body.MeanOrbitalVelocity);
@@ -81,9 +78,11 @@ public class FixedOrbit : MonoBehaviour
         // wrap to [0,2π) occasionally:
         if (t > 2.0 * Math.PI) t -= 2.0 * Math.PI;
 
-        // 6) Compute new position in Cartesian
-        double x = Center.x + systemLookup.ScaleDistance(r * Math.Cos(t + body.LongitudeOfPerihelion * 180.0 / Math.PI));
-        double y = Center.y + systemLookup.ScaleDistance(r * Math.Sin(t + body.LongitudeOfPerihelion * 180.0 / Math.PI));
+        // Progress the position around the ellipse
+        double theta = t + radLOP;
+        // Compute the Cartesian coordinates
+        double x = Center.x + systemLookup.ScaleDistance(r * Math.Cos(theta));
+        double y = Center.y + systemLookup.ScaleDistance(r * Math.Sin(theta));
 
         transform.localPosition = new Vector2((float)x, (float)y);
     }

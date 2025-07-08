@@ -35,15 +35,15 @@ public class Tracker : MonoBehaviour
 
         if (Math.Abs(Math.PI - fixedOrbit.t) < 0.01f)
         {
-            double x = fixedOrbit.Center.x + systemController.ScaleDistance(fixedOrbit.radius * Math.Cos(Math.PI + body.LongitudeOfPerihelion * 180.0 / Math.PI));
-            double y = fixedOrbit.Center.y + systemController.ScaleDistance(fixedOrbit.radius * Math.Sin(Math.PI + body.LongitudeOfPerihelion * 180.0 / Math.PI));
+            double x = fixedOrbit.Center.x + systemController.ScaleDistance(fixedOrbit.r * Math.Cos(Math.PI + body.LongitudeOfPerihelion * 180.0 / Math.PI));
+            double y = fixedOrbit.Center.y + systemController.ScaleDistance(fixedOrbit.r * Math.Sin(Math.PI + body.LongitudeOfPerihelion * 180.0 / Math.PI));
 
             aphelion = (float)Math.Sqrt(x * x + y * y);
         }
         
         if (fixedOrbit.t < 0.01f)
         {
-            perihelion = (float)fixedOrbit.radius / 1000;
+            perihelion = (float)fixedOrbit.r / 1000;
         }
 
         if (_half && Math.Abs(_startRadian - fixedOrbit.t) < 0.01f)
@@ -69,7 +69,7 @@ public class Tracker : MonoBehaviour
     void PrintLogs()
     {
         StringBuilder str = new StringBuilder($"Here are the stats for {body.Name} after 1 orbit:");
-        str.Append($"   Time to complete: {(float)systemController.ScaleTime(timer) / 86400} days. Error: {Mathf.Round(body.SiderealOrbitalPeriod / ((float)systemController.ScaleTime(timer) / 86400 * 10000)) / 100}%");
+        str.Append($"   Time to complete: {(float)systemController.ScaleTime(timer) / 86400} days. Error: {Mathf.Abs(100 - Mathf.Round((float)systemController.ScaleTime(timer) / 86400 * 10000 / body.SiderealOrbitalPeriod) / 100)}%");
         str.Append($"   Perihelion: {perihelion / Mathf.Pow(10, 6)}");
         str.Append($"   Aphelion: {(float)(systemController.IScaleDistance(aphelion / 1000) / Mathf.Pow(10, 6))}");
 

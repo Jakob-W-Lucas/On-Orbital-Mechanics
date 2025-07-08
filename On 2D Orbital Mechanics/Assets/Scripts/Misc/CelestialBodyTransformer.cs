@@ -5,16 +5,13 @@ using UnityEngine;
 
 public class CelestialBodyTransformer : MonoBehaviour
 {
-    [SerializeField] private int DefaultExaggeration;
     private SystemController systemLookup;
     private Transform[] bodies;
 
-    private void Start()
+    private void Awake()
     {
         systemLookup = GetComponent<SystemController>();
         bodies = GetComponentsInChildren<Transform>();
-
-        TransformBodies(DefaultExaggeration);
     }
 
     public void TransformBodies(int exaggeration)
